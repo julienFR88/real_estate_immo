@@ -163,6 +163,39 @@
                                   WHERE property.uid = user.uid 
                                     ORDER BY date DESC limit 9";
                       $query = mysqli_query($con, $sql);
+                      // on va parcourir les données du tableau correspondant à notre query
+                      while ($row = mysqli_fetch_array($query)) {
+                        ?>
+                        <div class="col-md-6 col-lg-4">
+                          <div class="featured-thumb hover-zoomer mb-4">
+                            <div class="overlay-black overflow-hidden position-relative"> 
+                              <img src="admin/property/<?php echo $row['18'];?>" alt="pimage">
+                              <div class="featured bg-primary text-white">New</div>
+                              <div class="sale bg-secondary text-white text-capitalize">For <?php echo $row['5'];?></div>
+                              <div class="price text-primary"><b>$<?php echo $row['13'];?> </b><span class="text-white"><?php echo $row['12'];?> Sqft</span></div>
+                            </div>
+                            <div class="featured-thumb-data shadow-one">
+                              <div class="p-3">
+                                  <h5 class="text-secondary hover-text-primary mb-2 text-capitalize"><a href="propertydetail.php?pid=<?php echo $row['0'];?>"><?php echo $row['1'];?></a></h5>
+                                  <span class="location text-capitalize"><i class="fas fa-map-marker-alt text-primary"></i> <?php echo $row['14'];?></span> </div>
+                              <div class="bg-gray quantity px-4 pt-4">
+                                <ul>
+                                  <li><span><?php echo $row['12'];?></span> Sqft</li>
+                                  <li><span><?php echo $row['6'];?></span> Beds</li>
+                                  <li><span><?php echo $row['7'];?></span> Baths</li>
+                                  <li><span><?php echo $row['9'];?></span> Kitchen</li>
+                                  <li><span><?php echo $row['8'];?></span> Balcony</li>
+                                </ul>
+                              </div>
+                              <div class="p-4 d-inline-block w-100">
+                                <div class="float-left text-capitalize"><i class="fas fa-user text-primary mr-1"></i>By : <?php echo $row['uname'];?></div>
+                                <div class="float-right"><i class="far fa-calendar-alt text-primary mr-1"></i> 6 Months Ago</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <?php
+                      }
                     ?>
                   </div>
                 </div>
