@@ -1,3 +1,11 @@
+<?php 
+  // on va faire un affichage d'erreur dans les sessions
+  ini_set('session.cache_limiter', 'public');
+  session_cache_limiter(false);
+  session_start();
+  include('config.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,7 +156,7 @@
               <div class="tab-content mt-4" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home">
                   <div class="row">
-                    
+
                   </div>
                 </div>
               </div>
