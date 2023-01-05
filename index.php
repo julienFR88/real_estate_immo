@@ -142,7 +142,16 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <h2 class="text-secondary double-down-line text-center mb-4"></h2>
+              <h2 class="text-secondary double-down-line text-center mb-4">Recent property</h2>
+            </div>
+            <div class="col-md-12">
+              <div class="tab-content mt-4" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home">
+                  <div class="row">
+                    
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
