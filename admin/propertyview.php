@@ -105,7 +105,7 @@
                 <tbody>
                   <?php
                         $query = mysqli_query($con, "SELECT * FROM property");
-    while ($row = mysqli_fetch_assoc($query)) {
+    while ($row = mysqli_fetch_row($query)) {
         ?>
                   <tr>
                     <td><?= $row['0']; ?></td>
@@ -139,7 +139,7 @@
                     <td><?php echo $row['28']; ?></td>
                     <td><?php echo $row['29']; ?></td>
                     <td><a href="propertyedit.php?id=<?php echo $row['0'];?>">Edit</a></td>
-                    <td><a href="propertydelete.php?id=<?php echo $row['0'];?>">Delete</a></td>
+                    <td><a href="propertydelete.php?id=<?php echo $row['0'];?>"><i class="fa-solid fa-trash-can"></i></a></td>
                   </tr>
                   <?php } ?>
                 </tbody>

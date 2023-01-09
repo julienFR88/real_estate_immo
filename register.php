@@ -55,7 +55,7 @@ if (isset($_REQUEST['reg'])) {
             if (!$phoneNumberUtil->isValidNumber($phoneNumberObject)) {
                 $phonei = $phoneNumberUtil->format($phoneNumberObject, \libphonenumber\PhoneNumberFormat::E164);
             } else {
-                $error_phone = "<p class='alert alert-warning'>Ur phone is not valid</p> ";
+                $error_phone = "<p class='alert alert-warning'>Our phone is not valid</p> ";
             }
         } catch (\libphonenumber\NumberParseException$e) {
             var_dump($e);
@@ -64,12 +64,12 @@ if (isset($_REQUEST['reg'])) {
         // verification du mot de passe avec caracteres speciaux
         $pattern = '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%+]{4,12}$/';
         if (!preg_match($pattern, $pass)) {
-            $error_pass = "<p class='alert alert-warning'>Ur password is not valid</p> ";
+            $error_pass = "<p class='alert alert-warning'>Our password is not valid</p> ";
         }
 
         // verification de l'email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error_email = "<p class='alert alert-warning'>Ur email is not valid</p> ";
+            $error_email = "<p class='alert alert-warning'>Our email is not valid</p> ";
         }
 
         // verification du mail en BDD
@@ -78,7 +78,7 @@ if (isset($_REQUEST['reg'])) {
         $num = mysqli_num_rows($res);
 
         if ($num == 1) {
-            $error = "<p class='alert alert-warning'>Email Id already Exist</p> ";
+            $error = "<p class='alert alert-warning'>Email Is already Exist</p> ";
         } else {
             if (!empty($name) && !empty($email) && !empty($phonei) && !empty($pass)) {
                 // criptage du mot de passe
@@ -95,7 +95,7 @@ if (isset($_REQUEST['reg'])) {
                 }
 
                 if ($result) {
-                    $msg = "<p class='alert alert-success'>Register Successfully, please check Ur email</p> ";
+                    $msg = "<p class='alert alert-success'>Register Successfully, please check our email</p> ";
 
                     // envoi de l'email
                     $from = "test@localhost";
@@ -104,10 +104,10 @@ if (isset($_REQUEST['reg'])) {
                     $message = "your registration is successful";
                     $headers = "De :" . $from;
                     if (mail($to, $subject, $message, $headers)) {
-                        $error = "<p class='alert alert-warning'>Register Successfully</p> ";
+                        $error = "<p class='alert alert-warning'>Registered Successfully</p> ";
                     }
                 } else {
-                    $error = "<p class='alert alert-warning'>Register Not Successfully</p> ";
+                    $error = "<p class='alert alert-warning'>Registered Not Successfully</p> ";
                 }
             } else {
                 $error = "<p class='alert alert-warning'>Please Fill all the fields</p>";
