@@ -22,7 +22,7 @@ if (isset($_REQUEST['reg'])) {
         $utype = $_REQUEST['utype'];
 
         if (($_FILES['uimage']['name'] != '')) {
-            $fileName = $_FILES['uimage']['name'];
+            $uimage = $_FILES['uimage']['name'];
             $fileTmpName = $_FILES['uimage']['tmp_name'];
             $fileSize = $_FILES['uimage']['size'];
             $fileError = $_FILES['uimage']['error'];
