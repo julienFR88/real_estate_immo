@@ -85,7 +85,8 @@
         <div class="login-right-wrap">
           <h1>Register</h1>
           <p class="account-subtitle">Access to our dashboard</p>
-          <?php echo $error; ?><?php echo $msg; ?>
+          <?php echo $error; ?>
+          <?php echo $msg; ?>
           <!-- Form -->
           <form method="post" enctype="multipart/form-data">
             <div class="form-group">
