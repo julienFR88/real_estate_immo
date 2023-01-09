@@ -2,11 +2,11 @@
     session_start();
     require('../config.php');
 
-    if(!isset($_SESSION['auser'])) {
+    if (!isset($_SESSION['auser'])) {
         header('Location: index.php');
         die();
     }
-?>
+    ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -104,11 +104,9 @@
                 </thead>
                 <tbody>
                   <?php
-                    $query = mysqli_query($con, "SELECT * FROM property");
-                    while ($row = mysqli_fetch_assoc($query)) {
-                      
-                    
-                  ?>
+                        $query = mysqli_query($con, "SELECT * FROM property");
+    while ($row = mysqli_fetch_assoc($query)) {
+        ?>
                   <tr>
                     <td><?= $row['0']; ?></td>
                     <td><?= $row['1']; ?></td>
