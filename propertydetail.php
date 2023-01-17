@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('./config.php');
+include './config.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,15 +8,37 @@ include('./config.php');
 
 <head>
     <?php
-    include('./include/head.php')
-    ?>
+include './include/head.php';
+if ($_POST['submit'] == 'submit') {
+    $destinataire = $_POST['agent'];
+    $expediteur = $_POST['email'];
+    $subject = 'Demande d\'info de bien immo';
+    $header = 'MINE-Version: 1.0' . "\n";
+    $header .= 'Reply-To: ' . $expediteur . "\n";
+    $header .= 'From: "Nom de l\'expediteur"<' . $expediteur . '>' . "\n";
+    $header .= 'Delivred-to:' . $destinataire . "\n";
+
+    //si je veux envoyer un emil en format en html :
+    $header .= 'Content-Type: text/html; charset=UTF-8';
+    $message = '<p>name:' . $_POST['firstname'] . '</p>
+                           <p>email:' . $_POST['email'] . '</p>
+                           <p>phone:' . $_POST['phone'] . '</p>
+                           <p>message:' . $_POST['message'] . '</p>';
+
+    if (mail($destinataire, $subject, $message, $header)) {
+        echo 'Message bien envoyé';
+    }
+
+}
+
+?>
 </head>
 
 <body>
     <div id="page-wrapper">
         <div class="row">
-            <?php include('./include/header.php') ?>
-            <div class="banner-full-row page-banner" style= "background-image: url('images/breadcromb.jpg');">
+            <?php include './include/header.php'?>
+            <div class="banner-full-row page-banner" style="background-image: url('images/breadcromb.jpg');">
                 <div class="row">
                     <div class="col-md-6">
                         <h2 class="page-name float-left text-uppercase mt-0 mb-0">Property Detail</h2>
@@ -24,7 +46,7 @@ include('./config.php');
                     <div class="col-md-6">
                         <nav class="float-left float-md-right">
                             <ol class="breadcrumb bg-transparent m-0 p-0">
-                                <li class="breadcrumb-item text-white"><a href=""></a></li>
+                                <li class="breadcrumb-item text-white"><a href="index.php"></a></li>
                                 <li class="breadcrumb-item active">Property Detail</li>
                             </ol>
                         </nav>
@@ -35,29 +57,29 @@ include('./config.php');
                 <div class="container">
                     <div class="row">
                         <?php
-                        $id    = $_GET['pid'];
-                        $query = mysqli_query($con, "SELECT property.*, user.* FROM property, user WHERE property.uid = user.uid AND pid ='$id'");
-                        while ($row = mysqli_fetch_array($query)) {
+$id = $_GET['pid'];
+$query = mysqli_query($con, "SELECT property.*, user.* FROM property, user WHERE property.uid = user.uid AND pid ='$id'");
+while ($row = mysqli_fetch_array($query)) {
 
-                        ?>
+    ?>
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div id="single-property" style="width: 1200px; height : 700px; margin : 30px auto 50px;">
                                             <div class="ls-slide" data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
-                                                <img src="./admin/property/<?= $row['18']; ?>" alt="" width="1920" height="1080" class="ls-bg">
+                                                <img src="./admin/property/<?=$row['18'];?>" alt="" width="1920" height="1080" class="ls-bg">
                                             </div>
                                             <div class="ls-slide" data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
-                                                <img src="./admin/property/<?= $row['19']; ?>" alt="" width="1920" height="1080" class="ls-bg">
+                                                <img src="./admin/property/<?=$row['19'];?>" alt="" width="1920" height="1080" class="ls-bg">
                                             </div>
                                             <div class="ls-slide" data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
-                                                <img src="./admin/property/<?= $row['20']; ?>" alt="" width="1920" height="1080" class="ls-bg">
+                                                <img src="./admin/property/<?=$row['20'];?>" alt="" width="1920" height="1080" class="ls-bg">
                                             </div>
                                             <div class="ls-slide" data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
-                                                <img src="./admin/property/<?= $row['21']; ?>" alt="" width="1920" height="1080" class="ls-bg">
+                                                <img src="./admin/property/<?=$row['21'];?>" alt="" width="1920" height="1080" class="ls-bg">
                                             </div>
                                             <div class="ls-slide" data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
-                                                <img src="./admin/property/<?= $row['22']; ?>" alt="" width="1920" height="1080" class="ls-bg">
+                                                <img src="./admin/property/<?=$row['22'];?>" alt="" width="1920" height="1080" class="ls-bg">
                                             </div>
                                         </div>
                                     </div>
@@ -79,10 +101,10 @@ include('./config.php');
                                         <div class="text-primary text-left h5 my-2 text-md-right">
 
                                             <?php
-                                            //Affichons le prix au format international en EN/US
-                                            $f = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
-                                            echo $f->formatCurrency($row['13'], "USD");
-                                            ?>
+//Affichons le prix au format international en EN/US
+    $f = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+    echo $f->formatCurrency($row['13'], "USD");
+    ?>
 
                                         </div>
                                         <div class="text-left text-md-right">Price</div>
@@ -91,44 +113,44 @@ include('./config.php');
                                 <div class="property-details">
                                     <div class="bg-gray property-quantity px-4 pt-4-w-100">
                                         <ul>
-                                            <li><span class="text-secondary"><?= $row['12']; ?></span>sqft²</li>
-                                            <li><span class="text-secondary"><?= $row['7']; ?></span>Bedroom</li>
-                                            <li><span class="text-secondary"><?= $row['6']; ?></span>Bathroom</li>
-                                            <li><span class="text-secondary"><?= $row['8']; ?></span>Balcony</li>
-                                            <li><span class="text-secondary"><?= $row['10']; ?></span>Hall</li>
-                                            <li><span class="text-secondary"><?= $row['9']; ?></span>Kitchen</li>
+                                            <li><span class="text-secondary"><?=$row['12'];?></span>sqft²</li>
+                                            <li><span class="text-secondary"><?=$row['7'];?></span>Bedroom</li>
+                                            <li><span class="text-secondary"><?=$row['6'];?></span>Bathroom</li>
+                                            <li><span class="text-secondary"><?=$row['8'];?></span>Balcony</li>
+                                            <li><span class="text-secondary"><?=$row['10'];?></span>Hall</li>
+                                            <li><span class="text-secondary"><?=$row['9'];?></span>Kitchen</li>
                                         </ul>
                                     </div>
                                     <h4 class="text-secondary my-4">Description</h4>
-                                    <p><?= $row['2']; ?></p>
+                                    <p><?=$row['2'];?></p>
                                     <h5 class="mt-5 mb-4 text-secondary">Property Sumary</h5>
                                     <div class="table-striped font-14 mb-2">
                                         <table class="w-100">
                                             <tbody>
                                                 <tr>
                                                     <td>BHK</td>
-                                                    <td class="text-capitalize"><?= $row['4']; ?></td>
+                                                    <td class="text-capitalize"><?=$row['4'];?></td>
                                                     <td>Property Type</td>
-                                                    <td class="text-capitalize"><?= $row['3']; ?></td>
+                                                    <td class="text-capitalize"><?=$row['3'];?></td>
                                                 </tr>
                                                 <tr>
                                                     <td>FLOOR</td>
-                                                    <td class="text-capitalize"><?= $row['11']; ?></td>
+                                                    <td class="text-capitalize"><?=$row['11'];?></td>
                                                     <td>Total Floor</td>
-                                                    <td class="text-capitalize"><?= $row['28']; ?></td>
+                                                    <td class="text-capitalize"><?=$row['28'];?></td>
                                                 </tr>
                                                 <tr>
                                                     <td>CITY</td>
-                                                    <td class="text-capitalize"><?= $row['15']; ?></td>
+                                                    <td class="text-capitalize"><?=$row['15'];?></td>
                                                     <td>State</td>
-                                                    <td class="text-capitalize"><?= $row['16']; ?></td>
+                                                    <td class="text-capitalize"><?=$row['16'];?></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <h5 class="mt-5 mb-4 text-secondary">Featured</h5>
                                     <div class="row">
-                                        <?= $row['17']; ?>
+                                        <?=$row['17'];?>
                                     </div>
                                     <h5 class="mt-5 mb-4 text-secondary">Floor Plans</h5>
                                     <div class="accordion" id="accordionExample">
@@ -171,7 +193,7 @@ include('./config.php');
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <form action="" class="bg-gray-form mt-5">
+                                                <form action="" method="post" class="bg-gray-form mt-5">
                                                     <div class="row">
                                                         <div class="col-md-5">
                                                             <div class="row">
@@ -185,7 +207,10 @@ include('./config.php');
                                                                     <div class="form-group">
                                                                         <input type="text" class="form-control bg-gray" id="phone" name="phone" placeholder="your phone">
                                                                     </div>
-                                                                    <div class="col-md-12"><button type="submit" id="send" value="sumbit" class="btn btn-primary">Send Your Message</button></div>
+                                                                    <div class="col-md-12">
+                                                                    <input type="hidden"  name="agent" value="<?=$row['uemail']?>">
+                                                                        <button type="submit" id="send" value="submit" class="btn btn-primary" name="submit">Send Your Message</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -206,8 +231,8 @@ include('./config.php');
                                 </div>
                             </div>
                         <?php
-                        }
-                        ?>
+                          }
+                          ?>
                         <div class="col-lg-4">
                             <h4 class="double-down-line-left text-secondary position-relative pb-4 mb-4 mt-md-50">Send Message</h4>
                             <form method="post" action="#">
@@ -272,15 +297,19 @@ include('./config.php');
                                 <ul class="property_list_widget">
 
                                     <?php
-                                    $query = mysqli_query($con, "SELECT * FROM `property` ORDER BY date DESC LIMIT 6");
-                                    while ($row = mysqli_fetch_array($query)) {
+                                      $query = mysqli_query($con, "SELECT * FROM `property` ORDER BY date DESC LIMIT 6");
+                                      while ($row = mysqli_fetch_array($query)) {
                                     ?>
                                         <li> <img src="admin/property/<?php echo $row['18']; ?>" alt="pimage">
-                                            <h6 class="text-secondary hover-text-primary text-capitalize"><a href="propertydetail.php?pid=<?php echo $row['0']; ?>"><?php echo $row['1']; ?></a></h6>
-                                            <span class="font-14"><i class="fas fa-map-marker-alt icon-primary icon-small"></i> <?php echo $row['14']; ?></span>
+                                            <h6 class="text-secondary hover-text-primary text-capitalize">
+                                                <a href="propertydetail.php?pid=<?php echo $row['0']; ?>"><?php echo $row['1']; ?></a>
+                                            </h6>
+                                            <span class="font-14"><i class="fas fa-map-marker-alt icon-primary icon-small">
+                                                </i> <?php echo $row['14']; ?>
+                                            </span>
 
                                         </li>
-                                    <?php } ?>
+                                    <?php }?>
 
                                 </ul>
                             </div>
@@ -295,7 +324,7 @@ include('./config.php');
     </div>
 
 
-    <?php include('./include/footer.php') ?>
+    <?php include './include/footer.php'?>
 
     <script src="js/jquery.min.js"></script>
     <!--jQuery Layer Slider -->
